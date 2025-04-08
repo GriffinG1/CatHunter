@@ -1,0 +1,22 @@
+{
+    "token": "YOUR_BOT_TOKEN_HERE",
+    "prefix": [".", "!"],
+    "is_beta": false,
+    "guild_data": {
+        "guild_id": 0,
+        "roles": {
+            "mods": 0
+        },
+        "channels": {
+            "bots": 0,
+            "joins": 0,
+            "log_channels": {
+                "err_logs": 0,
+                "mod_logs": 0,
+                "dm_logs": 0,
+                "deleted_logs": 0,
+                "join_logs": 0
+            }
+        }
+    }
+}
