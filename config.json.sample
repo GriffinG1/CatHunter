@@ -8,8 +8,6 @@
             "mods": 0
         },
         "channels": {
-            "bots": 0,
-            "joins": 0,
             "log_channels": {
                 "err_logs": 0,
                 "mod_logs": 0,
