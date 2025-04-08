@@ -124,8 +124,7 @@ async def on_ready():
 cogs = [
     "cogs.events",
     "cogs.misc",
-    "cogs.mod",
-    "cogs.roles"
+    "cogs.mod"
 ]
 
 
@@ -181,8 +180,7 @@ async def reload(ctx, cog=None):
         cog_dict = {
             "Events": "events",
             "Misc": "misc",
-            "Moderation": "mod",
-            "Roles": "roles"
+            "Moderation": "mod"
         }
         loaded_cogs = bot.cogs.copy()
         for loaded_cog in loaded_cogs:
