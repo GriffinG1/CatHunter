@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from datetime import datetime
+import asyncio
 
 
 class Events(commands.Cog):
@@ -25,6 +26,21 @@ class Events(commands.Cog):
         embed.add_field(name="Joined At", value=discord.utils.format_dt(member.joined_at, style="F"), inline=False)
         embed.add_field(name="Left At", value=discord.utils.format_dt(datetime.now(), style="F"), inline=False)
         await self.bot.join_logs_channel.send(embed=embed)
+
+    @commands.Cog.listener()
+    async def on_member_ban(self, guild, user):
+        # This is very gross handling for me to be lazy and not pass attachements to the listener
+        asyncio.sleep(5)  # Wait to see if a ban is logged via command
+        async for message in self.bot.ban_logs_channel.history(limit=1):
+            if message.author == self.bot.user and message.embeds:
+                if str(user) in message.embeds[0].description:
+                    return  # If the user is already in the log, don't log again
+
+        # Log bans
+        embed = discord.Embed(title="Member Banned", colour=discord.Colour.red())
+        embed.add_field(name="Member", value=f"{user.mention} | {user}", inline=False)
+        embed.add_field(name="Banned At", value=discord.utils.format_dt(datetime.now(), style="F"), inline=False)
+        await self.bot.ban_logs_channel.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_message(self, message):
