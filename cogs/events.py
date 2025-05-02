@@ -31,7 +31,7 @@ class Events(commands.Cog):
     async def on_member_ban(self, guild, user):
         # This is very gross handling for me to be lazy and not pass attachements to the listener
         asyncio.sleep(5)  # Wait to see if a ban is logged via command
-        async for message in self.bot.ban_logs_channel.history(limit=1):
+        async for message in self.bot.mod_logs_channel.history(limit=1):
             if message.author == self.bot.user and message.embeds:
                 if str(user) in message.embeds[0].description:
                     return  # If the user is already in the log, don't log again
