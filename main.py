@@ -5,6 +5,7 @@ import shutil
 import psutil
 import traceback
 import asyncio
+import sys
 import config_handler
 from datetime import datetime
 from discord.ext import commands
@@ -115,6 +116,9 @@ async def on_ready():
             bot.guild = bot.get_guild(guild_data_attrib[1])
         else:
             setattr(bot, guild_data_attrib[0], guild_data_attrib[1])  # catch anything else, and figure it out later
+    if len(sys.argv) > 1 and sys.argv[1] == "restart":
+        channel = bot.get_channel(int(sys.argv[2]))
+        await channel.send("Restarted!")
 
     bot.creator = await bot.fetch_user(177939404243992578)
 
@@ -211,12 +215,21 @@ async def ping(ctx):
     await ctx.send(f" Pong! `{ping}ms`")
 
 
-@bot.command(hidden=True)
-async def restart(ctx):
+@bot.command()
+async def shutdown(ctx):
     """Restarts the bot."""
-    if ctx.author != bot.creator:
-        raise commands.CheckFailure()
-    await ctx.send("Restarting...")
+    await ctx.send("Shutting down...")
+    await bot.session.close()
+    await bot.close()
+
+
+@bot.command()
+async def restart(ctx):
+    """Reloads the bot."""
+    await ctx.send("Restarting bot...")
+    print()
+    os.system(f"main.py restart {ctx.channel.id}")
+    await bot.session.close()
     await bot.close()
 
 
