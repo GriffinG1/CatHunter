@@ -218,6 +218,8 @@ async def ping(ctx):
 @bot.command()
 async def shutdown(ctx):
     """Restarts the bot."""
+    if ctx.author != bot.creator:
+        raise commands.CheckFailure()
     await ctx.send("Shutting down...")
     await bot.session.close()
     await bot.close()
@@ -226,6 +228,8 @@ async def shutdown(ctx):
 @bot.command()
 async def restart(ctx):
     """Reloads the bot."""
+    if ctx.author != bot.creator:
+        raise commands.CheckFailure()
     await ctx.send("Restarting bot...")
     print()
     os.system(f"main.py restart {ctx.channel.id}")
