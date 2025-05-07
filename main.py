@@ -221,7 +221,6 @@ async def shutdown(ctx):
     if ctx.author != bot.creator:
         raise commands.CheckFailure()
     await ctx.send("Shutting down...")
-    await bot.session.close()
     await bot.close()
 
 
@@ -233,7 +232,6 @@ async def restart(ctx):
     await ctx.send("Restarting bot...")
     print()
     os.system(f"main.py restart {ctx.channel.id}")
-    await bot.session.close()
     await bot.close()
 
 
