@@ -63,6 +63,8 @@ class Moderation(commands.Cog):
                 await user.send(f"You were banned from {ctx.guild.name} for `{reason}`")
         except discord.Forbidden:
             pass  # bot blocked or not accepting DMs
+        except discord.HTTPException:
+            pass  # bot couldn't send due to some other reason - bot accounts?
         embed = discord.Embed(title=f"{user} banned")
         embed.description = f"{user} was banned by {ctx.author} for:\n\n`{reason}`"
         if has_attch:
