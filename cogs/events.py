@@ -40,7 +40,7 @@ class Events(commands.Cog):
         embed = discord.Embed(title="Member Banned", colour=discord.Colour.red())
         embed.add_field(name="Member", value=f"{user.mention} | {user}", inline=False)
         embed.add_field(name="Banned At", value=discord.utils.format_dt(datetime.now(), style="F"), inline=False)
-        await self.bot.ban_logs_channel.send(embed=embed)
+        await self.bot.mod_logs_channel.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_message(self, message):
